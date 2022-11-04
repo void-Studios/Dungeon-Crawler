@@ -9,7 +9,8 @@ public class scriptAttackHandler : MonoBehaviour
     public PolygonCollider2D attackCollider;
     public Rigidbody2D attackRigid2d;
     public float projectileSpeed;
-    public Vector3 object_pos;
+    public GameObject object_pos;
+    private float lifeSpan;
 
 
 
@@ -17,24 +18,34 @@ public class scriptAttackHandler : MonoBehaviour
 
         this.destination = destination;
         isDirectionSet = true;
-        return destination;
+        return this.destination;
     }
     public void SetRotation(float rotation)
     {
         this.transform.rotation = Quaternion.Euler(0, 0, rotation);
     }
+    public float SetLifeSpan(float lifeSpan)
+    {
+        this.lifeSpan = lifeSpan;
+        return this.lifeSpan;
+    }
     public Vector3 GetDestination() { return destination; }
     public Quaternion GetRotation() { return this.transform.rotation; }
+    public float GetLifeSpan() { return lifeSpan; }
 
     private void Awake()
     {
-
+        lifeSpan = 1f;
+        object_pos = GameObject.FindGameObjectWithTag("Player");
         attackCollider = this.gameObject.transform.GetChild(0).GetComponent<PolygonCollider2D>();
         attackRigid2d = this.gameObject.transform.GetChild(0).GetComponent<Rigidbody2D>();
         isDirectionSet = false;
 
     }
-
+    private void Start()
+    {
+        StartCoroutine(LifespanCounter());
+    }
 
 
 
@@ -43,14 +54,22 @@ public class scriptAttackHandler : MonoBehaviour
     {
         if (isDirectionSet)
         {
-            //object_pos = transform.position;
-            
 
 
-            attackRigid2d.MovePosition(attackRigid2d.position + destination.normalized * projectileSpeed * Time.fixedDeltaTime);
+
+            Vector2 tempForward = new Vector2(this.transform.up.x, this.transform.up.y);
+            attackRigid2d.MovePosition(attackRigid2d.position + tempForward * projectileSpeed * Time.fixedDeltaTime);
 
 
 
         }
     }
+
+
+    IEnumerator LifespanCounter()
+    {
+        yield return new WaitForSeconds(lifeSpan);
+        Destroy(gameObject);
+    }
+
 }
