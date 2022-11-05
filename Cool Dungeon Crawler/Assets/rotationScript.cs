@@ -8,24 +8,31 @@ public class rotationScript : MonoBehaviour
     public Vector3 mouse_pos;
     public GameObject attack;
     public GameObject attackLocation;
+    public Vector3 attackLocationPosition;
     public GameObject AttackHolder;
     public Transform target;
+    public Vector3 targetPosition;
     public GameObject object_pos;
     private float angle;
     private float currentAngle;
     public Vector3 targetDestination;
+    public Vector3 shootDirection;
 
     // Update is called once per frame
     private void Awake()
     {
         AttackHolder = GameObject.FindGameObjectWithTag("attackHolder");
         object_pos = GameObject.FindGameObjectWithTag("attackShooter");
+        
     }
     void Update()
     {
+
+        attackLocationPosition = object_pos.transform.position;
+        targetPosition = target.position;
         // mouse_pos = Input.mousePosition;
         // mouse_pos.z=-10f;
-        mouse_pos=Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouse_pos =Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         
         mouse_pos.x = transform.position.x - mouse_pos.x;
@@ -39,6 +46,16 @@ public class rotationScript : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
+            shootDirection = (attackLocationPosition - targetPosition).normalized;
+
+
+
+
+
+
+
+
+
             /*
             Vector3 aim= Camera.main.ScreenToWorldPoint(Input.mousePosition);
             aim.z=0;

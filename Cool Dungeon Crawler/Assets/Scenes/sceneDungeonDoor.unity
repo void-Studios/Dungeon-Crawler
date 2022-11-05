@@ -416,11 +416,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b6b1b83b55d51346a25febcf4c34677, type: 3}
---- !u!1 &334458501 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8074831444462788163, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
-  m_PrefabInstance: {fileID: 2127527390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &362253312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2457110279010021637, guid: 0b6b1b83b55d51346a25febcf4c34677, type: 3}
@@ -2642,6 +2637,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6750879140801889240, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8074831444462788162, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2690,14 +2689,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8074831444462788163, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8074831444462788189, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
-      propertyPath: Fing
-      value: 
-      objectReference: {fileID: 334458501}
     - target: {fileID: 8074831444462788189, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: damageLabel
       value: 

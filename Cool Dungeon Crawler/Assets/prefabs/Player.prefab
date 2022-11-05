@@ -161,9 +161,13 @@ MonoBehaviour:
   mouse_pos: {x: 0, y: 0, z: 0}
   attack: {fileID: 7768038600097534146, guid: 7a4def1ff5c941145bd8c9f839ed8f68, type: 3}
   attackLocation: {fileID: 4164544605536613571}
+  attackLocationPosition: {x: 0, y: 0, z: 0}
   AttackHolder: {fileID: 0}
   target: {fileID: 8030972324002221047}
+  targetPosition: {x: 0, y: 0, z: 0}
   object_pos: {fileID: 0}
+  targetDestination: {x: 0, y: 0, z: 0}
+  shootDirection: {x: 0, y: 0, z: 0}
 --- !u!212 &5255979498732815103
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -389,7 +393,7 @@ MonoBehaviour:
   antiHealth: 0
   healthLabel: {fileID: 0}
   damageLabel: {fileID: 0}
-  Fing: {fileID: 4711628329351698082, guid: e0ef8825153a56f4fbb5d764ea67d50f, type: 3}
+  Fing: {fileID: 8074831444462788163}
 --- !u!60 &7524382784900319434
 PolygonCollider2D:
   m_ObjectHideFlags: 0
