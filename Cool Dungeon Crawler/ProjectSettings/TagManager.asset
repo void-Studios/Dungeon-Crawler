@@ -10,6 +10,7 @@ TagManager:
   - dropsHolder
   - dungeonHolder
   - attackShooter
+  - enemy
   layers:
   - Default
   - TransparentFX

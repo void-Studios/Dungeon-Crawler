@@ -7,12 +7,18 @@ public class scriptMovement : MonoBehaviour
     
     public float moveSpeed=5f;
     Vector2 movement;
-    
+    public PolygonCollider2D Collider2d;
+    public Rigidbody2D Rigid2d;
 
-    public Rigidbody2D playerRigid2d;
+
+   
 
     // Update is called once per frame
-    
+    private void Awake()
+    {
+        Collider2d = this.gameObject.transform.GetChild(1).GetComponent<PolygonCollider2D>();
+        Rigid2d = this.gameObject.transform.GetChild(1).GetComponent<Rigidbody2D>();
+    }
     void  Update() {
         movement.y = Input.GetAxis("Vertical");
         movement.x = Input.GetAxis("Horizontal");
@@ -25,7 +31,7 @@ public class scriptMovement : MonoBehaviour
          
 
        
-        playerRigid2d.MovePosition(playerRigid2d.position+movement*moveSpeed*Time.fixedDeltaTime);
+        Rigid2d.MovePosition(Rigid2d.position+movement*moveSpeed*Time.fixedDeltaTime);
 
 
     }

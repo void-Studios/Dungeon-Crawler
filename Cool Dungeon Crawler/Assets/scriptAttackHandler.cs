@@ -9,7 +9,7 @@ public class scriptAttackHandler : MonoBehaviour
     public PolygonCollider2D attackCollider;
     public Rigidbody2D attackRigid2d;
     public float projectileSpeed;
-    public GameObject object_pos;
+    public GameObject playerObj;
     private float lifeSpan;
 
 
@@ -26,6 +26,7 @@ public class scriptAttackHandler : MonoBehaviour
     }
     public float SetLifeSpan(float lifeSpan)
     {
+
         this.lifeSpan = lifeSpan;
         return this.lifeSpan;
     }
@@ -36,7 +37,7 @@ public class scriptAttackHandler : MonoBehaviour
     private void Awake()
     {
         lifeSpan = 1f;
-        object_pos = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GameObject.FindGameObjectWithTag("Player");
         attackCollider = this.gameObject.transform.GetChild(0).GetComponent<PolygonCollider2D>();
         attackRigid2d = this.gameObject.transform.GetChild(0).GetComponent<Rigidbody2D>();
         isDirectionSet = false;

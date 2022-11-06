@@ -46,17 +46,8 @@ public class rotationScript : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            shootDirection = (attackLocationPosition - targetPosition).normalized;
-
-
-
-
-
-
-
-
-
             /*
+            shootDirection = (attackLocationPosition - targetPosition).normalized;
             Vector3 aim= Camera.main.ScreenToWorldPoint(Input.mousePosition);
             aim.z=0;
             float angleAim;
