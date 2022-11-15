@@ -11,6 +11,8 @@ public class Trail
 }
 public class scriptLevelGenerator : MonoBehaviour
 {
+    public Transform playerRoot;
+
     public GameObject dungeonHolder;
     public int dungeonLength;
     public GameObject enemyPrefab;
@@ -54,7 +56,15 @@ public class scriptLevelGenerator : MonoBehaviour
 
     //0,1,2,3 order for sides
     //UP,DOWN,RIGHT,LEFT
-   private void Start() {
+    private void Awake()
+    {
+        
+        playerRoot = FindObjectOfType<StatsHandler>().transform;
+
+    }
+
+
+    private void Start() {
         //Defaulting
         dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
 
@@ -299,7 +309,7 @@ public class scriptLevelGenerator : MonoBehaviour
         else
         {
             RecursiveClean();
-            Player.transform.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
+            playerRoot.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
         }
     
 
