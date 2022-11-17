@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 726750467}
   - component: {fileID: 726750468}
   m_Layer: 7
-  m_Name: Game Handler
+  m_Name: Apostle
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089acf82d7148dc4f93221f7d9375b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRoot: {fileID: 0}
   dungeonHolder: {fileID: 0}
   dungeonLength: 10
   enemyPrefab: {fileID: 475405181717195782, guid: e0ef8825153a56f4fbb5d764ea67d50f, type: 3}
@@ -417,7 +418,7 @@ Transform:
   - {fileID: 1867916869}
   - {fileID: 366858288}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &726750467
 MonoBehaviour:
@@ -448,18 +449,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 726750464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821a62a10c77d4348ada8a8731c080b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 87f0ffd796a048245a73142962dc9e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage:
-    baseValue: 0
-  health:
-    baseValue: 0
-  antiDamage: 0
-  antiHealth: 0
-  healthLabel: {fileID: 0}
-  damageLabel: {fileID: 0}
-  Fing: {fileID: 0}
+  player: {fileID: 1384257804}
+  SceneLoader: {fileID: 3254912576664472669, guid: f31d6772852b7664b9472fe71c577e52, type: 3}
+  SceneDestination: 2
 --- !u!1 &794496331
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +551,7 @@ Transform:
   m_Children:
   - {fileID: 919941243}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &845987613
 Grid:
@@ -938,7 +933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2457110278915161342, guid: 0b6b1b83b55d51346a25febcf4c34677, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2457110278915161342, guid: 0b6b1b83b55d51346a25febcf4c34677, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1027,7 +1022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8074831444462788162, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8074831444462788162, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: m_LocalPosition.x

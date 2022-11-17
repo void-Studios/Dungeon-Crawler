@@ -11,6 +11,8 @@ public class Trail
 }
 public class scriptLevelGenerator : MonoBehaviour
 {
+    private GameObject Apostle;
+
     public Transform playerRoot;
 
     public GameObject dungeonHolder;
@@ -58,8 +60,9 @@ public class scriptLevelGenerator : MonoBehaviour
     //UP,DOWN,RIGHT,LEFT
     private void Awake()
     {
-        
+        Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
         playerRoot = FindObjectOfType<StatsHandler>().transform;
+        Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot.gameObject);
 
     }
 
@@ -70,7 +73,7 @@ public class scriptLevelGenerator : MonoBehaviour
 
         Defaulting();
        
-       //Declaring tile boundaries
+       //Declaring tile boundaries[NSEW]
        int[] bSNDead = new int[4]{0,1,0,0};
        int[] bNSDead = new int[4]{1,0,0,0};
        int[] bVertical = new int[4]{1,1,0,0};
@@ -93,6 +96,9 @@ public class scriptLevelGenerator : MonoBehaviour
        boundingLeft = new List<int[]>(){bEWDead,bHorizontal,bR,bRInv,bT,bTInv,bTVertical};
 
         StartGame();
+
+
+
    }
 
    private void Update() {
@@ -118,6 +124,7 @@ public class scriptLevelGenerator : MonoBehaviour
                 fail+=1;
             }
         }
+
         if (trailInfo.Count<dungeonLength)
         {
             //Debug.Log("Attempting Force. Current count is "+trailInfo.Count.ToString());
@@ -273,6 +280,7 @@ public class scriptLevelGenerator : MonoBehaviour
         }
 
         entityList.Clear();
+        
         trailInfo.Clear();
         isRetry=false;
         tilemap.ClearAllTiles();
@@ -300,16 +308,23 @@ public class scriptLevelGenerator : MonoBehaviour
         tempObj = Instantiate(damageBooster,boosterSpawn,healthBooster.transform.rotation, dungeonHolder.transform);
         entityList.Add(tempObj);
 
-        if (trailInfo.Count<dungeonLength)
+        //Level has been generated and we proceed to confirm if it's a valid level. 
+
+        if (trailInfo.Count<dungeonLength)//Invalid level therefore scrap and retry
         {
             Defaulting();
             StartGame();
-           //Not enough length.
+           
         }
-        else
+        else //Successful level creation and therefore final cleanup and player spawn.
         {
             RecursiveClean();
             playerRoot.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
+            
+            
+            GodEye.SetHasInitialized(true);
+            Debug.Log("Initialized...");
+            //Game has finished initializing. no further lines below please. :c
         }
     
 

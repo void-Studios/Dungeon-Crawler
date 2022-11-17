@@ -2520,7 +2520,7 @@ GameObject:
   - component: {fileID: 1576416608}
   - component: {fileID: 1576416609}
   m_Layer: 7
-  m_Name: centerOfWorld
+  m_Name: Apostle
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

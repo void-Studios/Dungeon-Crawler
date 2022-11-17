@@ -9,6 +9,9 @@ public class scriptSceneLoader : MonoBehaviour
    public IEnumerator LoadLevel(int levelIndex)
     {
 
+
+
+
         //transition.SetTrigger("Start");
         yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(levelIndex);
