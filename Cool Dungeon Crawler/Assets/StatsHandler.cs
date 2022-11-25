@@ -35,18 +35,18 @@ public class StatsHandler : MonoBehaviour
 
     private float projectileSpeed;
     private int projectileCount;
-    private string projectileCurrent;
-    private string projectilePrevious;
+    private WeaponListEntry projectileCurrent;
+    private WeaponListEntry projectilePrevious;
     private float projectileLifetime;
 
     public float GetProjectileSpeed() { return projectileSpeed; }
     public void SetProjectileSpeed(float value) { projectileSpeed = value; }
     public int GetProjectileCount() { return projectileCount; }
     public void SetProjectileCount(int value) { projectileCount = value; }
-    public string GetProjectileCurrent() { return projectileCurrent; }
-    public void SetProjectileCurrent(string value) { projectileCurrent = value; }
-    public string GetProjectilePrevious() { return projectilePrevious; }
-    public void SetProjectilePrevious(string value) { projectilePrevious = value; }
+    public WeaponListEntry GetProjectileCurrent() { return projectileCurrent; }
+    public void SetProjectileCurrent(WeaponListEntry value) { projectileCurrent = value; }
+    public WeaponListEntry GetProjectilePrevious() { return projectilePrevious; }
+    public void SetProjectilePrevious(WeaponListEntry value) { projectilePrevious = value; }
     public float GetProjectileLifetime() { return projectileLifetime; }
     public void SetProjectileLifetime(float value) { projectileLifetime = value; }
     #endregion
@@ -60,6 +60,8 @@ public class StatsHandler : MonoBehaviour
 
     #endregion
 
+    [SerializeField] private GameObject Apostle;
+    private scriptApostle scriptApostle;
 
 
     public Stat damage;
@@ -70,40 +72,32 @@ public class StatsHandler : MonoBehaviour
     public int antiDamage;
     public int antiHealth;
 
-    public GameObject healthLabel;
-    public GameObject damageLabel;
     public GameObject Fing;
 
 
 
-    void Awake() 
+    void Start() 
     {
-        healthLabel = GameObject.Find("Canvas/CurrentHealth/healthVar");
-        damageLabel = GameObject.Find("Canvas/CurrentDamage/damageVar");
-
+        Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
+        scriptApostle = Apostle.GetComponent<scriptApostle>();
         if (!GodEye.GetHasInitialized())
         {
-            maxHealth = 1;
-            currentHealth = 1;
-            movementSpeed = 2;
-            currentAttack = 1;
-            attackSpeed = 1;
+            //Default Values, could be optimized based on Player Selection
+            DefaultPlayer();
+            maxHealth = GodEye.GetPlayerHPMax();
+            currentHealth = GodEye.GetPlayerHPCurrent();
+            movementSpeed = GodEye.GetPlayerSpeed();
+            currentAttack = GodEye.GetPlayerAttack();
+            attackSpeed = GodEye.GetPlayerAttackSpeed();
 
-            projectileSpeed = 1;
-            projectileCount = 1;
+            projectileSpeed = GodEye.GetWeaponSpeed();
+            projectileCount = GodEye.GetWeaponCount();
             projectileCurrent = GodEye.GetWeaponCurrentActive();
-            projectileLifetime = 1;
+            projectileLifetime = GodEye.GetWeaponLifetime();
 
             activeAura = GodEye.GetAuraCurrentActive();
-
-            antiMaxHealth = maxHealth;
-            antiHealth = currentHealth;
-            antiDamage = currentAttack;
-            healthLabel.GetComponent<TextMeshProUGUI>().text = currentHealth.ToString();
-            damageLabel.GetComponent<TextMeshProUGUI>().text = currentAttack.ToString();
-
         }
-        else
+        else //Has Initialized therefore load values
         {
             maxHealth = GodEye.GetPlayerHPMax();
             currentHealth = GodEye.GetPlayerHPCurrent();
@@ -117,9 +111,39 @@ public class StatsHandler : MonoBehaviour
             projectileLifetime = GodEye.GetWeaponLifetime();
 
             activeAura = GodEye.GetAuraCurrentActive();
-
+            scriptApostle.UIUpdate();
         }
-}
+
+        
+
+    }
+
+    public bool DefaultPlayer()
+    {
+        GodEye.SetPlayerHPMax(1);
+        GodEye.SetPlayerHPCurrent(1);
+        GodEye.SetPlayerSpeed(2);
+        GodEye.SetPlayerAttack(1);
+        GodEye.SetPlayerAttackSpeed(1);
+        int tempRandom = Random.Range(0, scriptApostle.WeaponList.Length - 1);
+        GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
+        scriptApostle.SetWeaponCurrent();
+        GodEye.SetWeaponSpeed(1);
+        GodEye.SetWeaponCount(1);
+        GodEye.SetWeaponLifetime(1);
+        GodEye.SetAuraCurrentActive("null");
+
+
+        scriptApostle.SetPlayerObject(this.gameObject);
+        scriptApostle.UIUpdate();
+
+        return true;
+    }
+
+
+
+
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -135,28 +159,20 @@ public class StatsHandler : MonoBehaviour
         {
             maxHealth+=1;
             currentHealth=maxHealth;
-            UpdateLabels(orb,currentHealth);
 
         }
         else if(orb == "damage")
         {
             currentAttack+=1;
-            UpdateLabels(orb,currentAttack);
             
         }
-    }
-    public void UpdateLabels(string obj, int value)
-    {
-        if (obj == "health")
-        {
-            healthLabel.GetComponent<TextMeshProUGUI>().text=value.ToString();
-        }
-        else if (obj == "damage")
-        {
-            damageLabel.GetComponent<TextMeshProUGUI>().text=value.ToString();
-        }
+
+
+
+
 
     }
+    
     public virtual void Die() 
     {
         //Dieded by death

@@ -24,8 +24,8 @@ public static class GodEye
     //Weapon variables for current Weapon
     private static float weaponSpeed;
     private static int weaponCount;
-    private static string weaponCurrentActive;
-    private static string weaponPreviousActive;
+    private static WeaponListEntry weaponCurrentActive;
+    private static WeaponListEntry weaponPreviousActive;
     private static float weaponLifetime;
 
     //Aura variables for Current Aura
@@ -76,9 +76,9 @@ public static class GodEye
     public static int GetWeaponCount(){return weaponCount;}
     public static void SetWeaponCount(int value){weaponCount = value;}
 
-    public static string GetWeaponPreviousActive() { return weaponPreviousActive; }
-    public static string GetWeaponCurrentActive(){return weaponCurrentActive;}
-    public static void SetWeaponCurrentActive(string value)
+    public static WeaponListEntry GetWeaponPreviousActive() { return weaponPreviousActive; }
+    public static WeaponListEntry GetWeaponCurrentActive(){return weaponCurrentActive;}
+    public static void SetWeaponCurrentActive(WeaponListEntry value)
     {
         weaponPreviousActive = weaponCurrentActive;
         weaponCurrentActive = value;

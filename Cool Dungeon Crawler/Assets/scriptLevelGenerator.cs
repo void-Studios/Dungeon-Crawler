@@ -103,8 +103,11 @@ public class scriptLevelGenerator : MonoBehaviour
 
    private void Update() {
        if (Input.GetKeyDown(KeyCode.R)){
+            GodEye.SetHasInitialized(false);
+
             Defaulting();
             StartGame();
+
        }
    }
 
@@ -274,6 +277,7 @@ public class scriptLevelGenerator : MonoBehaviour
 
     public void Defaulting()
     {
+        playerRoot.GetComponent<StatsHandler>().DefaultPlayer();
         for(int i = 0; i <entityList.Count; i++)
         {
             Destroy(entityList[i]);
@@ -292,7 +296,6 @@ public class scriptLevelGenerator : MonoBehaviour
         testPosition = new Vector3Int(0,0,0);
         currentBounding=new int[4]{1,1,1,1};
         enemyCount=0;
-    
     
     }
 

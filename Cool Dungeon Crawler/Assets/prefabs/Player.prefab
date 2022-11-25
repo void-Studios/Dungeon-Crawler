@@ -161,14 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821a62a10c77d4348ada8a8731c080b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Apostle: {fileID: 0}
   damage:
     baseValue: 1
   health:
     baseValue: 1
   antiDamage: 0
   antiHealth: 0
-  healthLabel: {fileID: 0}
-  damageLabel: {fileID: 0}
   Fing: {fileID: 8074831444462788163}
 --- !u!114 &4038753203814776054
 MonoBehaviour:
@@ -183,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouse_pos: {x: 0, y: 0, z: 0}
-  attack: {fileID: 7768038600097534146, guid: 7a4def1ff5c941145bd8c9f839ed8f68, type: 3}
+  attack: {fileID: 0}
   attackLocation: {fileID: 4164544605536613571}
   attackLocationPosition: {x: 0, y: 0, z: 0}
   AttackHolder: {fileID: 0}
@@ -192,6 +191,7 @@ MonoBehaviour:
   object_pos: {fileID: 0}
   targetDestination: {x: 0, y: 0, z: 0}
   shootDirection: {x: 0, y: 0, z: 0}
+  Apostle: {fileID: 0}
 --- !u!212 &5255979498732815103
 SpriteRenderer:
   m_ObjectHideFlags: 0

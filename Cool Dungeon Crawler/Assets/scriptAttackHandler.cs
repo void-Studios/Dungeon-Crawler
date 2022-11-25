@@ -8,11 +8,12 @@ public class scriptAttackHandler : MonoBehaviour
     private Vector2 destination;
     public PolygonCollider2D attackCollider;
     public Rigidbody2D attackRigid2d;
-    public float projectileSpeed;
-    public GameObject playerObj;
+    [SerializeField]private float projectileSpeed;
+    public StatsHandler Player;
     private float lifeSpan;
+    private bool isDeathRequested;
 
-
+    public GameObject sprite;
 
     public Vector3 SetDestination(Vector3 destination) {
 
@@ -36,8 +37,11 @@ public class scriptAttackHandler : MonoBehaviour
 
     private void Awake()
     {
-        lifeSpan = 1f;
-        playerObj = GameObject.FindGameObjectWithTag("Player");
+        isDeathRequested = false;
+        lifeSpan = GodEye.GetWeaponLifetime();
+        projectileSpeed = GodEye.GetWeaponSpeed();
+        Player = FindObjectOfType<StatsHandler>();
+        sprite = this.gameObject.transform.GetChild(0).gameObject;
         attackCollider = this.gameObject.transform.GetChild(0).GetComponent<PolygonCollider2D>();
         attackRigid2d = this.gameObject.transform.GetChild(0).GetComponent<Rigidbody2D>();
         isDirectionSet = false;
@@ -47,30 +51,37 @@ public class scriptAttackHandler : MonoBehaviour
     {
         StartCoroutine(LifespanCounter());
     }
-
-
-
-    // Physics Update is called once per frame
     void FixedUpdate()
     {
         if (isDirectionSet)
         {
-
-
-
             Vector2 tempForward = new Vector2(this.transform.up.x, this.transform.up.y);
             attackRigid2d.MovePosition(attackRigid2d.position + tempForward * projectileSpeed * Time.fixedDeltaTime);
-
-
-
         }
     }
+
+    public bool InvokeDeath()
+    {
+        if (!isDeathRequested)
+        {
+            isDeathRequested = true;
+            Destroy(gameObject);
+        
+        }
+        return true;
+    }
+
+
+
+
+
+
 
 
     IEnumerator LifespanCounter()
     {
         yield return new WaitForSeconds(lifeSpan);
-        Destroy(gameObject);
+        InvokeDeath();
     }
 
 }
