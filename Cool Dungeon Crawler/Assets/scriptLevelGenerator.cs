@@ -138,6 +138,16 @@ public class scriptLevelGenerator : MonoBehaviour
         }
     }
 
+    private bool BetterDrawer()
+    {
+
+
+
+        return true;
+    }
+
+
+
     public bool DrawLevel()
         {
             //random thingy
