@@ -19,8 +19,8 @@ public class buttonHandler : MonoBehaviour
     public bool isInventoryOpen;
     private void Start() {
         playerStats = Player.transform.GetChild(1).GetComponent<StatsHandler>();
-        playerHealth=playerStats.currentHealth;
-        playerDamage=playerStats.currentDamage;
+        playerHealth=playerStats.GetCurrentHealth();
+        playerDamage=playerStats.GetCurrentAttack();
     }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape))

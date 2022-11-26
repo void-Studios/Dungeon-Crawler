@@ -10,7 +10,7 @@ public class pickupScript : MonoBehaviour
 
     private void Start()
     {
-        gameHandler = GameObject.Find("Game Handler");
+        gameHandler = GameObject.FindObjectOfType<scriptApostle>().gameObject;
         temp.AddRange(gameHandler.GetComponent<scriptLevelGenerator>().entityList);
     }
     private void OnTriggerEnter2D(Collider2D other) 

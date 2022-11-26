@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8782461272485620247}
   - component: {fileID: 8386663258292393965}
   - component: {fileID: 5279246856595461078}
+  - component: {fileID: 5470695304304981560}
+  - component: {fileID: 2056352934772082158}
   m_Layer: 6
   m_Name: sprite
   m_TagString: Untagged
@@ -322,6 +324,40 @@ PolygonCollider2D:
       - {x: 0.013333334, y: 0}
       - {x: 0.016666668, y: 0}
       - {x: 0.016666668, y: 0.0033333334}
+--- !u!50 &5470695304304981560
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125477951139221087}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &2056352934772082158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125477951139221087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ade4d19ef6814e4f9499fb8cbb24dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
 --- !u!1 &7768038600097534146
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,3 +405,5 @@ MonoBehaviour:
   attackCollider: {fileID: 0}
   attackRigid2d: {fileID: 0}
   projectileSpeed: 0
+  Player: {fileID: 0}
+  sprite: {fileID: 0}
