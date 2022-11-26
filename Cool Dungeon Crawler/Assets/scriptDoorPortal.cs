@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class scriptDoorPortal : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject sceneLoader;
     public GameObject statusObject;
     private void Awake()
     {

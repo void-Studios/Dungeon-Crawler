@@ -10,9 +10,6 @@ public class scriptMovement : MonoBehaviour
     public PolygonCollider2D Collider2d;
     public Rigidbody2D Rigid2d;
 
-
-   
-
     // Update is called once per frame
     private void Awake()
     {
@@ -22,22 +19,9 @@ public class scriptMovement : MonoBehaviour
     void  Update() {
         movement.y = Input.GetAxis("Vertical");
         movement.x = Input.GetAxis("Horizontal");
-
-        
-
-    }
+}
     void FixedUpdate()
     {
-         
-
-       
         Rigid2d.MovePosition(Rigid2d.position+movement*moveSpeed*Time.fixedDeltaTime);
-
-
     }
-
-    
-
-    
- 
 }

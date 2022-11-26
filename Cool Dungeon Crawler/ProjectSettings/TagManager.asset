@@ -11,6 +11,8 @@ TagManager:
   - dungeonHolder
   - attackShooter
   - enemy
+  - apostle
+  - boss
   layers:
   - Default
   - TransparentFX

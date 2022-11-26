@@ -12,23 +12,8 @@ public class scriptDungeonRoom : MonoBehaviour
     [SerializeField] private GameObject dungeonHolder;
     [SerializeField] private GameObject[] chest;
 
-
-
-
-
-
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _ = Instantiate(exitPortal, Vector3.zero, Quaternion.identity, dungeonHolder.transform);
     }
 }
