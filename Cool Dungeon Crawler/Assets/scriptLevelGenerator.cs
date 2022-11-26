@@ -63,14 +63,12 @@ public class scriptLevelGenerator : MonoBehaviour
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
         playerRoot = FindObjectOfType<StatsHandler>().transform;
         Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot.gameObject);
-
+        dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
     }
 
 
     private void Start() {
         //Defaulting
-        dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
-
         Defaulting();
        
        //Declaring tile boundaries[NSEW]
@@ -96,18 +94,13 @@ public class scriptLevelGenerator : MonoBehaviour
        boundingLeft = new List<int[]>(){bEWDead,bHorizontal,bR,bRInv,bT,bTInv,bTVertical};
 
         StartGame();
-
-
-
    }
 
    private void Update() {
        if (Input.GetKeyDown(KeyCode.R)){
             GodEye.SetHasInitialized(false);
-
             Defaulting();
             StartGame();
-
        }
    }
 

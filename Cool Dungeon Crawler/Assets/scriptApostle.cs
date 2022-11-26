@@ -53,6 +53,8 @@ public class scriptApostle : MonoBehaviour
         }
     }
 
+    public GameObject GetPlayerObject() { return player; }
+    public StatsHandler GetPlayerStats() { return playerStats; }
     public void SetPlayerObject(GameObject value) 
     { 
         player = value; 

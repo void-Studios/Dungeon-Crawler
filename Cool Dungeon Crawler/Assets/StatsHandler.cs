@@ -84,6 +84,7 @@ public class StatsHandler : MonoBehaviour
         {
             //Default Values, could be optimized based on Player Selection
             DefaultPlayer();
+
             maxHealth = GodEye.GetPlayerHPMax();
             currentHealth = GodEye.GetPlayerHPCurrent();
             movementSpeed = GodEye.GetPlayerSpeed();
@@ -127,7 +128,6 @@ public class StatsHandler : MonoBehaviour
         GodEye.SetPlayerAttackSpeed(1);
         int tempRandom = Random.Range(0, scriptApostle.WeaponList.Length - 1);
         GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
-        scriptApostle.SetWeaponCurrent();
         GodEye.SetWeaponSpeed(1);
         GodEye.SetWeaponCount(1);
         GodEye.SetWeaponLifetime(1);
@@ -136,6 +136,7 @@ public class StatsHandler : MonoBehaviour
 
         scriptApostle.SetPlayerObject(this.gameObject);
         scriptApostle.UIUpdate();
+        scriptApostle.SetWeaponCurrent();
 
         return true;
     }

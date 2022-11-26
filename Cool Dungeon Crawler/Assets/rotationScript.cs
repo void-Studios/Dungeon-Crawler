@@ -20,11 +20,13 @@ public class rotationScript : MonoBehaviour
 
 
     [SerializeField] private GameObject Apostle;
+
     private scriptApostle scriptApostle;
     private void Start()
     {
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
         scriptApostle = Apostle.GetComponent<scriptApostle>();
+
         AttackHolder = GameObject.FindGameObjectWithTag("attackHolder");
         object_pos = GameObject.FindGameObjectWithTag("attackShooter");
     }
@@ -50,7 +52,7 @@ public class rotationScript : MonoBehaviour
     }
     private void Shoot(Vector3 destination,float rotation)
     {
-        attack = scriptApostle.GetWeaponCurrent();
+        attack = GodEye.GetWeaponCurrentActive().WeaponObject;
         GameObject tempAttack = Instantiate(attack, attackLocation.transform.position, Quaternion.identity,AttackHolder.transform);
         tempAttack.GetComponent<scriptAttackHandler>().SetRotation(rotation);
         tempAttack.GetComponent<scriptAttackHandler>().SetDestination(destination - object_pos.transform.position);
