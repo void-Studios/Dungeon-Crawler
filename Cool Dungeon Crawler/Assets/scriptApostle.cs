@@ -48,7 +48,6 @@ public class scriptApostle : MonoBehaviour
             {
                 WeaponCurrent= WeaponList[i].WeaponObject;
                 GodEye.SetWeaponCurrentActive(WeaponList[i]);
-
             }
         }
     }

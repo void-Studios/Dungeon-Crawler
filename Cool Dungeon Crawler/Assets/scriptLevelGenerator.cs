@@ -13,15 +13,16 @@ public class scriptLevelGenerator : MonoBehaviour
 {
     private GameObject Apostle;
 
-    public Transform playerRoot;
+    public GameObject playerRoot;
+    private StatsHandler PlayerStats;
 
     public GameObject dungeonHolder;
     public int dungeonLength;
     public GameObject enemyPrefab;
-    int enemyCount;
+    private int enemyCount;
     public GameObject fingPrefab;
     public GameObject doorPrefab;
-    int doorCount;
+    private int doorCount;
 
     public Tilemap tilemap;
     public TileBase[] tilesUp;
@@ -61,8 +62,9 @@ public class scriptLevelGenerator : MonoBehaviour
     private void Awake()
     {
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
-        playerRoot = FindObjectOfType<StatsHandler>().transform;
-        Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot.gameObject);
+        playerRoot = FindObjectOfType<StatsHandler>().transform.gameObject;
+        PlayerStats = playerRoot.GetComponent<StatsHandler>();
+        Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot);
         dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
     }
 
@@ -280,7 +282,7 @@ public class scriptLevelGenerator : MonoBehaviour
 
     public void Defaulting()
     {
-        playerRoot.GetComponent<StatsHandler>().DefaultPlayer();
+        PlayerStats.DefaultPlayer();
         for(int i = 0; i <entityList.Count; i++)
         {
             Destroy(entityList[i]);
@@ -325,7 +327,7 @@ public class scriptLevelGenerator : MonoBehaviour
         else //Successful level creation and therefore final cleanup and player spawn.
         {
             RecursiveClean();
-            playerRoot.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
+            playerRoot.transform.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
             
             
             GodEye.SetHasInitialized(true);

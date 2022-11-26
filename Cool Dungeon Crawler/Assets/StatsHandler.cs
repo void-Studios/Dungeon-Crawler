@@ -126,7 +126,8 @@ public class StatsHandler : MonoBehaviour
         GodEye.SetPlayerSpeed(2);
         GodEye.SetPlayerAttack(1);
         GodEye.SetPlayerAttackSpeed(1);
-        int tempRandom = Random.Range(0, scriptApostle.WeaponList.Length - 1);
+        int v = Random.Range(0, scriptApostle.WeaponList.Length - 1);
+        int tempRandom = v;
         GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
         GodEye.SetWeaponSpeed(1);
         GodEye.SetWeaponCount(1);
