@@ -121,12 +121,18 @@ public class StatsHandler : MonoBehaviour
 
     public bool DefaultPlayer()
     {
+        if (Apostle==null)
+        {
+            Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
+            scriptApostle = Apostle.GetComponent<scriptApostle>();
+
+        }
         GodEye.SetPlayerHPMax(1);
         GodEye.SetPlayerHPCurrent(1);
         GodEye.SetPlayerSpeed(2);
         GodEye.SetPlayerAttack(1);
         GodEye.SetPlayerAttackSpeed(1);
-        int v = Random.Range(0, scriptApostle.WeaponList.Length - 1);
+        int v = Random.Range(0, scriptApostle.WeaponList.Length);
         int tempRandom = v;
         GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
         GodEye.SetWeaponSpeed(1);

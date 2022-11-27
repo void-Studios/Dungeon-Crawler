@@ -319,9 +319,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 726750466}
+  - component: {fileID: 726750468}
   - component: {fileID: 726750465}
   - component: {fileID: 726750467}
-  - component: {fileID: 726750468}
   m_Layer: 7
   m_Name: Apostle
   m_TagString: apostle
@@ -413,7 +413,7 @@ Transform:
   - {fileID: 1867916869}
   - {fileID: 366858288}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &726750467
 MonoBehaviour:
@@ -469,6 +469,7 @@ MonoBehaviour:
   - {fileID: 7768038600097534146, guid: 78e6793e186f83f43ba0dfb68ce01b15, type: 3}
   - {fileID: 7768038600097534146, guid: e16b98fb3321a9b499108133a07eb809, type: 3}
   - {fileID: 7768038600097534146, guid: 0989266e07194b84db45b6af94fe651d, type: 3}
+  GameController: {fileID: 0}
   SceneDestination: 2
 --- !u!1 &794496331
 GameObject:
@@ -1067,7 +1068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8074831444462788162, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8074831444462788162, guid: 9df6a6f0c12b33c4cb15df684e15460e, type: 3}
       propertyPath: m_LocalPosition.x

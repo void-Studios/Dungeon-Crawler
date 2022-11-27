@@ -35,6 +35,7 @@ public class scriptLevelGenerator : MonoBehaviour
     public List<int[]> boundingDown = new List<int[]>();
     public List<int[]> boundingRight = new List<int[]>();
     public List<int[]> boundingLeft = new List<int[]>();
+    public List<List<int[]>> StorageList = new List<List<int[]>>();
 
     public List<Trail> trailInfo = new List<Trail>();
     public List<GameObject> entityList = new List<GameObject>();
@@ -69,7 +70,9 @@ public class scriptLevelGenerator : MonoBehaviour
     }
 
 
-    private void Start() {
+    private void Start() 
+    {
+
         //Defaulting
         Defaulting();
        
@@ -94,7 +97,14 @@ public class scriptLevelGenerator : MonoBehaviour
        boundingDown = new List<int[]>() {bNSDead,bVertical,bRInv,bLInv,bTInv,bTVertical,bTVerticalInv};
        boundingRight = new List<int[]>(){bWEDead,bHorizontal,bL,bLInv,bT,bTInv,bTVerticalInv};
        boundingLeft = new List<int[]>(){bEWDead,bHorizontal,bR,bRInv,bT,bTInv,bTVertical};
-
+        /*NESW [0,1,2,3]
+         * N = 0
+         * E = 1
+         * S = 2
+         * W = 3 
+        */
+        StorageList = new List<List<int[]>>() { boundingUp, boundingRight, boundingDown, boundingLeft };
+        
         StartGame();
    }
 
@@ -143,10 +153,32 @@ public class scriptLevelGenerator : MonoBehaviour
         }
     }
 
-    private bool BetterDrawer()
+    private bool BetterStart()
     {
+        BoundingList bSNDead = new BoundingList( 0, 1, 0, 0 );
+        BoundingList bNSDead = new BoundingList(1, 0, 0, 0 );
+        BoundingList bVertical = new BoundingList(1, 1, 0, 0 );
+        BoundingList bHorizontal = new BoundingList(0, 0, 1, 1 );
+        BoundingList bR = new BoundingList(0, 1, 1, 0 );
+        BoundingList bRInv = new BoundingList(1, 0, 1, 0 );
+        BoundingList bL = new BoundingList(0, 1, 0, 1 );
+        BoundingList bLInv = new BoundingList(1, 0, 0, 1 );
+        BoundingList bT = new BoundingList(0, 1, 1, 1 );
+        BoundingList bTInv = new BoundingList(1, 0, 1, 1 );
+        BoundingList bTVertical = new BoundingList(1, 1, 1, 0 );
+        BoundingList bTVerticalInv = new BoundingList(1, 1, 0, 1 );
+        BoundingList bWEDead = new BoundingList(0, 0, 0, 1 );
+        BoundingList bEWDead = new BoundingList(0, 0, 1, 0 );
 
 
+        return true;
+    }
+    private bool BetterDrawLevel()
+    {
+        //Variables for the Randomizer
+
+        int RandomTile = Random.Range(0, 7);
+        int RandomDirection = Random.Range(0,4);
 
         return true;
     }
