@@ -18,7 +18,7 @@ public class buttonHandler : MonoBehaviour
 
     public bool isInventoryOpen;
     private void Start() {
-        playerStats = Player.transform.GetChild(1).GetComponent<StatsHandler>();
+        playerStats = FindObjectOfType<StatsHandler>();
         playerHealth=playerStats.GetCurrentHealth();
         playerDamage=playerStats.GetCurrentAttack();
     }

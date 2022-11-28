@@ -321,7 +321,6 @@ GameObject:
   - component: {fileID: 726750466}
   - component: {fileID: 726750468}
   - component: {fileID: 726750465}
-  - component: {fileID: 726750467}
   m_Layer: 7
   m_Name: Apostle
   m_TagString: apostle
@@ -415,26 +414,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &726750467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726750464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d350caeea8e83041b601fd8a5b4641d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Inventory: {fileID: 0}
-  aboutPanel: {fileID: 0}
-  Player: {fileID: 1384257804}
-  healthLabel: {fileID: 0}
-  playerStats: {fileID: 0}
-  playerHealth: 0
-  playerDamage: 0
-  isInventoryOpen: 0
 --- !u!114 &726750468
 MonoBehaviour:
   m_ObjectHideFlags: 0
