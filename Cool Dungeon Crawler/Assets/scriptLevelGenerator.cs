@@ -155,6 +155,7 @@ public class scriptLevelGenerator : MonoBehaviour
 
     private bool BetterStart()
     {
+#region Variable declaration for BetterStart() Usage
         BoundingList bSNDead = new BoundingList( 0, 1, 0, 0 );
         BoundingList bNSDead = new BoundingList(1, 0, 0, 0 );
         BoundingList bVertical = new BoundingList(1, 1, 0, 0 );
@@ -169,6 +170,7 @@ public class scriptLevelGenerator : MonoBehaviour
         BoundingList bTVerticalInv = new BoundingList(1, 1, 0, 1 );
         BoundingList bWEDead = new BoundingList(0, 0, 0, 1 );
         BoundingList bEWDead = new BoundingList(0, 0, 1, 0 );
+        #endregion
 
 
         return true;
