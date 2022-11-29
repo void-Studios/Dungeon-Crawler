@@ -30,7 +30,7 @@ public class rotationScript : MonoBehaviour
         AttackHolder = GameObject.FindGameObjectWithTag("attackHolder");
         object_pos = GameObject.FindGameObjectWithTag("attackShooter");
     }
-    void Update()
+    void FixedUpdate()
     {
         attackLocationPosition = object_pos.transform.position;
         targetPosition = target.position;

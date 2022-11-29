@@ -127,6 +127,7 @@ public class StatsHandler : MonoBehaviour
             scriptApostle = Apostle.GetComponent<scriptApostle>();
 
         }
+
         GodEye.SetPlayerHPMax(1);
         GodEye.SetPlayerHPCurrent(1);
         GodEye.SetPlayerSpeed(2);
@@ -140,17 +141,12 @@ public class StatsHandler : MonoBehaviour
         GodEye.SetWeaponLifetime(1);
         GodEye.SetAuraCurrentActive("null");
 
-
         scriptApostle.SetPlayerObject(this.gameObject);
         scriptApostle.UIUpdate();
         scriptApostle.SetWeaponCurrent();
 
         return true;
     }
-
-
-
-
 
     public void TakeDamage(int damage)
     {

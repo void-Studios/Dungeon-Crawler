@@ -14,6 +14,7 @@ public class scriptDungeonRoom : MonoBehaviour
 
     private void Awake()
     {
-        _ = Instantiate(exitPortal, Vector3.zero, Quaternion.identity, dungeonHolder.transform);
+        Vector3Int zero = new Vector3Int(0, 0, -1);
+        _ = Instantiate(exitPortal,zero, Quaternion.identity, dungeonHolder.transform);
     }
 }

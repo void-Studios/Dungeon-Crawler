@@ -29,10 +29,9 @@ public class HUDHandler : MonoBehaviour
         for (int i = 1; i < GodEye.GetPlayerHPMax(); i++)
         {
             _ = Instantiate(heartMini, heartContainer.transform);
-
         }
 
-        for (int i = 0; i < scriptApostle.WeaponList.Length-1; i++)
+        for (int i = 0; i < scriptApostle.WeaponList.Length; i++)
         {
             if (scriptApostle.WeaponList[i].WeaponName == GodEye.GetWeaponCurrentActive().WeaponName)
             {

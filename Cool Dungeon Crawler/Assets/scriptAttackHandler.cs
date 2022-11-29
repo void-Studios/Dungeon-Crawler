@@ -15,6 +15,7 @@ public class scriptAttackHandler : MonoBehaviour
 
     public GameObject sprite;
 
+    #region GetSets
     public Vector3 SetDestination(Vector3 destination) {
 
         this.destination = destination;
@@ -27,13 +28,15 @@ public class scriptAttackHandler : MonoBehaviour
     }
     public float SetLifeSpan(float lifeSpan)
     {
-
         this.lifeSpan = lifeSpan;
         return this.lifeSpan;
     }
+    
     public Vector3 GetDestination() { return destination; }
     public Quaternion GetRotation() { return this.transform.rotation; }
     public float GetLifeSpan() { return lifeSpan; }
+    #endregion
+
 
     private void Awake()
     {
@@ -45,7 +48,6 @@ public class scriptAttackHandler : MonoBehaviour
         attackCollider = this.gameObject.transform.GetChild(0).GetComponent<PolygonCollider2D>();
         attackRigid2d = this.gameObject.transform.GetChild(0).GetComponent<Rigidbody2D>();
         isDirectionSet = false;
-
     }
     private void Start()
     {
