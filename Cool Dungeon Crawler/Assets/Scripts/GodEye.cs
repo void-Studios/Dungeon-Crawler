@@ -40,12 +40,12 @@ public static class GodEye
     #region GlobalMethods
     public static bool GetHasInitialized() { return hasInitialized; }
     public static void SetHasInitialized(bool value) { hasInitialized = value; }
-    
+
     public static int GetWorldDifficulty() { return worldDifficulty; }
     public static void SetWorldDifficulty(int value) { worldDifficulty += value; }
 
     public static List<Trail> GetTrailInfo() { return trailInfo; }
-    public static void SetTrailInfo(int posX, int posY, int[] currentBounding) 
+    public static void SetTrailInfo(int posX, int posY, int[] currentBounding)
     {
         trailInfo.Add(new Trail { XPos = posX, YPos = posY, BoundingBox = currentBounding });
     }
@@ -53,20 +53,35 @@ public static class GodEye
     #endregion
 
     #region PlayerMethods
-    public static float GetPlayerSpeed(){return playerSpeed;}
-    public static void SetPlayerSpeed(float value){ playerSpeed = value; }
+    public static float GetPlayerSpeed() { return playerSpeed; }
+    public static void SetPlayerSpeed(float value) { playerSpeed = value; }
 
-    public static int GetPlayerHPMax(){return playerHPMax;}
-    public static void SetPlayerHPMax(int value){playerHPMax = value;}
+    public static int GetPlayerHPMax() { return playerHPMax; }
+    public static void SetPlayerHPMax(int value) { playerHPMax = value; }
 
-    public static int GetPlayerHPCurrent(){return playerHPCurrent;}
-    public static void SetPlayerHPCurrent(int value){playerHPCurrent = value;}
+    public static int GetPlayerHPCurrent() { return playerHPCurrent; }
+    public static void SetPlayerHPCurrent(int value) { playerHPCurrent = value; }
 
-    public static int GetPlayerAttack(){return playerAttack;}
-    public static void SetPlayerAttack(int value){playerAttack = value;}
+    public static int GetPlayerAttack() { return playerAttack; }
+    public static void SetPlayerAttack(int value) { playerAttack = value; }
 
-    public static float GetPlayerAttackSpeed(){return playerAttackSpeed;}
-    public static void SetPlayerAttackSpeed(float value){playerAttackSpeed = value;}
+    public static float GetPlayerAttackSpeed() { return playerAttackSpeed; }
+    public static void SetPlayerAttackSpeed(float value) { playerAttackSpeed = value; }
+
+    public static void SetDefaultPlayer() 
+    {
+        playerHPMax=1;
+        playerHPCurrent=1;
+        playerSpeed=2;
+        playerAttack=1;
+        playerAttackSpeed=1;
+        weaponSpeed=1;
+        weaponCount=1;
+        weaponLifetime=1;
+        auraCurrentActive = "null";
+    }
+
+
     #endregion
 
     #region WeaponMethods

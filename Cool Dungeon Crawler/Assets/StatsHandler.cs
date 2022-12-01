@@ -78,24 +78,25 @@ public class StatsHandler : MonoBehaviour
 
     void Start() 
     {
+
+        //release plug for BetterChanges
+        //Initiate();
+
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
         scriptApostle = Apostle.GetComponent<scriptApostle>();
         if (!GodEye.GetHasInitialized())
         {
             //Default Values, could be optimized based on Player Selection
             DefaultPlayer();
-
             maxHealth = GodEye.GetPlayerHPMax();
             currentHealth = GodEye.GetPlayerHPCurrent();
             movementSpeed = GodEye.GetPlayerSpeed();
             currentAttack = GodEye.GetPlayerAttack();
             attackSpeed = GodEye.GetPlayerAttackSpeed();
-
             projectileSpeed = GodEye.GetWeaponSpeed();
             projectileCount = GodEye.GetWeaponCount();
             projectileCurrent = GodEye.GetWeaponCurrentActive();
             projectileLifetime = GodEye.GetWeaponLifetime();
-
             activeAura = GodEye.GetAuraCurrentActive();
         }
         else //Has Initialized therefore load values
@@ -105,18 +106,50 @@ public class StatsHandler : MonoBehaviour
             movementSpeed = GodEye.GetPlayerSpeed();
             currentAttack = GodEye.GetPlayerAttack();
             attackSpeed = GodEye.GetPlayerAttackSpeed();
-
             projectileSpeed = GodEye.GetWeaponSpeed();
             projectileCount = GodEye.GetWeaponCount();
             projectileCurrent = GodEye.GetWeaponCurrentActive();
             projectileLifetime = GodEye.GetWeaponLifetime();
-
             activeAura = GodEye.GetAuraCurrentActive();
             scriptApostle.UIUpdate();
         }
+    }
+    public void Initiate()
+    {
+        Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
+        scriptApostle = Apostle.GetComponent<scriptApostle>();
 
-        
+        if (!GodEye.GetHasInitialized())
+        {
+            BetterDefault();
+        }
 
+        maxHealth = GodEye.GetPlayerHPMax();
+        currentHealth = GodEye.GetPlayerHPCurrent();
+        movementSpeed = GodEye.GetPlayerSpeed();
+        currentAttack = GodEye.GetPlayerAttack();
+        attackSpeed = GodEye.GetPlayerAttackSpeed();
+
+        projectileSpeed = GodEye.GetWeaponSpeed();
+        projectileCount = GodEye.GetWeaponCount();
+        projectileCurrent = GodEye.GetWeaponCurrentActive();
+        projectileLifetime = GodEye.GetWeaponLifetime();
+
+        activeAura = GodEye.GetAuraCurrentActive();
+        scriptApostle.UIUpdate();
+
+
+
+    }
+    public bool BetterDefault()
+    {
+        int v = Random.Range(0, scriptApostle.WeaponList.Length);
+        int tempRandom = v;
+        GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
+        scriptApostle.SetPlayerObject(this.gameObject);
+        scriptApostle.SetWeaponCurrent();
+
+        return true;
     }
 
     public bool DefaultPlayer()

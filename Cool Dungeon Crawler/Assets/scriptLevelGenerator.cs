@@ -35,7 +35,7 @@ public class scriptLevelGenerator : MonoBehaviour
     public List<int[]> boundingDown = new List<int[]>();
     public List<int[]> boundingRight = new List<int[]>();
     public List<int[]> boundingLeft = new List<int[]>();
-    public List<List<int[]>> StorageList = new List<List<int[]>>();
+    public BoundingListStorage StorageList;
 
     public List<Trail> trailInfo = new List<Trail>();
     public List<GameObject> entityList = new List<GameObject>();
@@ -51,11 +51,8 @@ public class scriptLevelGenerator : MonoBehaviour
     public int prevX;
     public int prevY;
     public int[] currentBounding;
-   
     public int facing;
-
     public bool drewSuccess;
-    
     public bool isRetry;
 
     //0,1,2,3 order for sides
@@ -97,13 +94,14 @@ public class scriptLevelGenerator : MonoBehaviour
        boundingDown = new List<int[]>() {bNSDead,bVertical,bRInv,bLInv,bTInv,bTVertical,bTVerticalInv};
        boundingRight = new List<int[]>(){bWEDead,bHorizontal,bL,bLInv,bT,bTInv,bTVerticalInv};
        boundingLeft = new List<int[]>(){bEWDead,bHorizontal,bR,bRInv,bT,bTInv,bTVertical};
+        
         /*NESW [0,1,2,3]
          * N = 0
          * E = 1
          * S = 2
          * W = 3 
         */
-        StorageList = new List<List<int[]>>() { boundingUp, boundingRight, boundingDown, boundingLeft };
+
         
         StartGame();
    }
@@ -155,22 +153,41 @@ public class scriptLevelGenerator : MonoBehaviour
 
     private bool BetterStart()
     {
-#region Variable declaration for BetterStart() Usage
-        BoundingList bSNDead = new BoundingList( 0, 1, 0, 0 );
-        BoundingList bNSDead = new BoundingList(1, 0, 0, 0 );
-        BoundingList bVertical = new BoundingList(1, 1, 0, 0 );
-        BoundingList bHorizontal = new BoundingList(0, 0, 1, 1 );
-        BoundingList bR = new BoundingList(0, 1, 1, 0 );
-        BoundingList bRInv = new BoundingList(1, 0, 1, 0 );
-        BoundingList bL = new BoundingList(0, 1, 0, 1 );
-        BoundingList bLInv = new BoundingList(1, 0, 0, 1 );
-        BoundingList bT = new BoundingList(0, 1, 1, 1 );
-        BoundingList bTInv = new BoundingList(1, 0, 1, 1 );
-        BoundingList bTVertical = new BoundingList(1, 1, 1, 0 );
-        BoundingList bTVerticalInv = new BoundingList(1, 1, 0, 1 );
-        BoundingList bWEDead = new BoundingList(0, 0, 0, 1 );
-        BoundingList bEWDead = new BoundingList(0, 0, 1, 0 );
+        #region Variable declaration for BetterStart() Usage
+        //Individual Bounding of each Tile, to be further changed with 
+        //JSON->LIST->Object
+        TileBoundings bSNDead = new TileBoundings( 0, 1, 0, 0 );
+        TileBoundings bNSDead = new TileBoundings(1, 0, 0, 0 );
+        TileBoundings bVertical = new TileBoundings(1, 1, 0, 0 );
+        TileBoundings bHorizontal = new TileBoundings(0, 0, 1, 1 );
+        TileBoundings bR = new TileBoundings(0, 1, 1, 0 );
+        TileBoundings bRInv = new TileBoundings(1, 0, 1, 0 );
+        TileBoundings bL = new TileBoundings(0, 1, 0, 1 );
+        TileBoundings bLInv = new TileBoundings(1, 0, 0, 1 );
+        TileBoundings bT = new TileBoundings(0, 1, 1, 1 );
+        TileBoundings bTInv = new TileBoundings(1, 0, 1, 1 );
+        TileBoundings bTVertical = new TileBoundings(1, 1, 1, 0 );
+        TileBoundings bTVerticalInv = new TileBoundings(1, 1, 0, 1 );
+        TileBoundings bWEDead = new TileBoundings(0, 0, 0, 1 );
+        TileBoundings bEWDead = new TileBoundings(0, 0, 1, 0 );
+
+        //ListStorage
+        BoundingList boundingsN = new BoundingList(bSNDead, bVertical, bR, bL, bT, bTVertical, bTVerticalInv);
+        BoundingList boundingsE = new BoundingList(bWEDead, bHorizontal, bL, bLInv, bT, bTInv, bTVerticalInv);
+        BoundingList boundingsS = new BoundingList(bWEDead, bHorizontal, bL, bLInv, bT, bTInv, bTVerticalInv);
+        BoundingList boundingsW = new BoundingList(bEWDead, bHorizontal, bR, bRInv, bT, bTInv, bTVertical);
+
+        //Storage for the Lists of Lists
+        StorageList = new BoundingListStorage(boundingsN, boundingsE, boundingsS, boundingsW);
         #endregion
+
+
+        return true;
+    }
+    private bool BetterDefault()
+    {
+        GodEye.SetDefaultPlayer();
+        //Calculate new weapon and send info
 
 
         return true;
@@ -362,14 +379,10 @@ public class scriptLevelGenerator : MonoBehaviour
         {
             RecursiveClean();
             playerRoot.transform.position = tilemap.CellToWorld(new Vector3Int(trailInfo[0].XPos,trailInfo[0].YPos,1));
-            
-            
             GodEye.SetHasInitialized(true);
             Debug.Log("Initialized...");
             //Game has finished initializing. no further lines below please. :c
         }
-    
-
     }
 
     public void TrailAdd()
