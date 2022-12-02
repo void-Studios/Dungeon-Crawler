@@ -12,6 +12,7 @@ public class Trail
 public class scriptLevelGenerator : MonoBehaviour
 {
     private GameObject Apostle;
+    private scriptApostle scriptApostle;
 
     public GameObject playerRoot;
     private StatsHandler PlayerStats;
@@ -60,6 +61,7 @@ public class scriptLevelGenerator : MonoBehaviour
     private void Awake()
     {
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
+
         playerRoot = FindObjectOfType<StatsHandler>().transform.gameObject;
         PlayerStats = playerRoot.GetComponent<StatsHandler>();
         Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot);
@@ -95,12 +97,7 @@ public class scriptLevelGenerator : MonoBehaviour
        boundingRight = new List<int[]>(){bWEDead,bHorizontal,bL,bLInv,bT,bTInv,bTVerticalInv};
        boundingLeft = new List<int[]>(){bEWDead,bHorizontal,bR,bRInv,bT,bTInv,bTVertical};
         
-        /*NESW [0,1,2,3]
-         * N = 0
-         * E = 1
-         * S = 2
-         * W = 3 
-        */
+        
 
         
         StartGame();
@@ -174,10 +171,12 @@ public class scriptLevelGenerator : MonoBehaviour
         //ListStorage
         BoundingList boundingsN = new BoundingList(bSNDead, bVertical, bR, bL, bT, bTVertical, bTVerticalInv);
         BoundingList boundingsE = new BoundingList(bWEDead, bHorizontal, bL, bLInv, bT, bTInv, bTVerticalInv);
-        BoundingList boundingsS = new BoundingList(bWEDead, bHorizontal, bL, bLInv, bT, bTInv, bTVerticalInv);
+        BoundingList boundingsS = new BoundingList(bNSDead, bVertical, bRInv, bLInv, bTInv, bTVertical, bTVerticalInv);
         BoundingList boundingsW = new BoundingList(bEWDead, bHorizontal, bR, bRInv, bT, bTInv, bTVertical);
 
         //Storage for the Lists of Lists
+       
+
         StorageList = new BoundingListStorage(boundingsN, boundingsE, boundingsS, boundingsW);
         #endregion
 
@@ -187,7 +186,12 @@ public class scriptLevelGenerator : MonoBehaviour
     private bool BetterDefault()
     {
         GodEye.SetDefaultPlayer();
+        PlayerStats.BetterDefault();
         //Calculate new weapon and send info
+        int v = Random.Range(0, scriptApostle.WeaponList.Length);
+        int tempRandom = v;
+        GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
+        scriptApostle.SetWeaponCurrent();
 
 
         return true;
@@ -195,9 +199,20 @@ public class scriptLevelGenerator : MonoBehaviour
     private bool BetterDrawLevel()
     {
         //Variables for the Randomizer
-
+        BoundingList currentBoundings;
         int RandomTile = Random.Range(0, 7);
         int RandomDirection = Random.Range(0,4);
+
+        currentBoundings = StorageList.Get(RandomDirection);
+        
+
+
+
+
+
+
+
+
 
         return true;
     }

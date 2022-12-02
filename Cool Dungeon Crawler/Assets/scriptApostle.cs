@@ -67,6 +67,12 @@ public class scriptApostle : MonoBehaviour
 
     public bool SceneEnterInitiated() 
     {
+        //controller activate and then activate the rest from there
+        //this ensures that the apostle will load first and then levelgen
+        //then the rest of the information that may be required. 
+
+
+
 
 
         return true; 

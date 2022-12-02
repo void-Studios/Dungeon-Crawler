@@ -13,6 +13,17 @@ public class Buff
 
 public class StatsHandler : MonoBehaviour
 {
+    #region GlobalUsed
+    private bool hasInitialized;
+    
+    public bool GetHasInitialized() { return hasInitialized; }
+    /*
+    public void SetHasInitiliazed(bool value) 
+    {
+        hasInitialized = value;
+    }*/
+    #endregion
+
     #region PlayerUsed
     private int maxHealth;
     private int currentHealth;
@@ -63,10 +74,8 @@ public class StatsHandler : MonoBehaviour
     [SerializeField] private GameObject Apostle;
     private scriptApostle scriptApostle;
 
-
     public Stat damage;
     public Stat health;
-
 
     public int antiMaxHealth { get; private set; }
     public int antiDamage;
@@ -81,7 +90,7 @@ public class StatsHandler : MonoBehaviour
 
         //release plug for BetterChanges
         //Initiate();
-
+        #region Garbarge
         Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
         scriptApostle = Apostle.GetComponent<scriptApostle>();
         if (!GodEye.GetHasInitialized())
@@ -113,6 +122,7 @@ public class StatsHandler : MonoBehaviour
             activeAura = GodEye.GetAuraCurrentActive();
             scriptApostle.UIUpdate();
         }
+        #endregion
     }
     public void Initiate()
     {
@@ -139,7 +149,7 @@ public class StatsHandler : MonoBehaviour
         scriptApostle.UIUpdate();
 
 
-
+        hasInitialized = true;
     }
     public bool BetterDefault()
     {
@@ -158,7 +168,6 @@ public class StatsHandler : MonoBehaviour
         {
             Apostle = FindObjectOfType<scriptApostle>().transform.gameObject;
             scriptApostle = Apostle.GetComponent<scriptApostle>();
-
         }
 
         GodEye.SetPlayerHPMax(1);

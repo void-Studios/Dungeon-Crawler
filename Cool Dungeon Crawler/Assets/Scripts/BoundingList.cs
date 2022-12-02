@@ -23,4 +23,30 @@ public class BoundingList
         this.six = six;
         this.seven = seven;
     }
+
+    public TileBoundings Get(int value)
+    {
+        int testvalue = value - 1;
+        switch (testvalue)
+        {
+            case 0:
+                return one;
+            case 1:
+                return two;
+            case 2:
+                return three;
+            case 3:
+                return four;
+            case 4:
+                return five;
+            case 5:
+                return six;
+            case 6:
+                return seven;
+            case -1:
+                break;
+        }
+        return null;
+    }
+
 }
