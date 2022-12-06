@@ -11,6 +11,12 @@ public class Trail
 }
 public class scriptLevelGenerator : MonoBehaviour
 {
+    #region BetterVariables
+    private List<TrailPoint> Trail=new List<TrailPoint>();
+
+
+    #endregion
+
     private GameObject Apostle;
     private scriptApostle scriptApostle;
 
@@ -36,8 +42,9 @@ public class scriptLevelGenerator : MonoBehaviour
     public List<int[]> boundingDown = new List<int[]>();
     public List<int[]> boundingRight = new List<int[]>();
     public List<int[]> boundingLeft = new List<int[]>();
+    
     public BoundingListStorage StorageList;
-
+    public TilesListStorage TilesList;
     public List<Trail> trailInfo = new List<Trail>();
     public List<GameObject> entityList = new List<GameObject>();
  
@@ -66,6 +73,7 @@ public class scriptLevelGenerator : MonoBehaviour
         PlayerStats = playerRoot.GetComponent<StatsHandler>();
         Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot);
         dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
+
     }
 
 
@@ -178,6 +186,7 @@ public class scriptLevelGenerator : MonoBehaviour
        
 
         StorageList = new BoundingListStorage(boundingsN, boundingsE, boundingsS, boundingsW);
+        TilesList = new TilesListStorage(tilesUp, tilesRight, tilesDown, tilesLeft);
         #endregion
 
 
@@ -199,25 +208,79 @@ public class scriptLevelGenerator : MonoBehaviour
     private bool BetterDrawLevel()
     {
         //Variables for the Randomizer
-        BoundingList currentBoundings;
+        BoundingList currentBoundingsList;
         int RandomTile = Random.Range(0, 7);
-        int RandomDirection = Random.Range(0,4);
+        Direction RandomDirection = new Direction(Random.Range(0, 4));
+        int x = 0;
+        int y = 0;
 
-        currentBoundings = StorageList.Get(RandomDirection);
+        //TrailPoint for DrawTile
+        TrailPoint trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile,false);
+
+        currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
+        TileBoundings _tempTileBoundings = currentBoundingsList.Get(RandomTile);
+
+        //Requests X,Y to be filled with Tile from Direction
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (DrawTile(trailPoint))
+            {
+                break;
+            }
+            else
+            {
+                trailPoint.Next();
+            }
+        }
+
+        if (!trailPoint.isSuccess)
+        {
+            return false;
+        }
         
-
-
-
-
-
-
-
-
-
         return true;
     }
 
+    private bool DrawTile(TrailPoint trailPoint)
+    {
+        //for loop to check if trailinfo matches an entry from trail[]
+        
+        testPosition = new Vector3Int(trailPoint.x, trailPoint.y, 0);
+        if (tilemap.GetTile(testPosition) != null)
+        {
+            return false;
+        }
+        else
+        {
+            tilemap.SetTile(testPosition, TilesList.Get(trailPoint.direction.direction)[trailPoint.tile]);
 
+            if (trailPoint.direction.GetAxis() == "x")
+            {
+                posX += trailPoint.direction.GetIncrement();
+            }
+            else if (trailPoint.direction.GetAxis()=="y")
+            {
+                posY += trailPoint.direction.GetIncrement();
+            }
+
+            posY += trailPoint.direction.GetIncrement();
+
+            tilemap.SetTile(position, tilesUp[trailPoint.tile]);
+            currentBounding = boundingUp[trailPoint.tile];
+            facing = trailPoint.direction.GetDirection();
+            trailPoint.isSuccess = true;
+            BetterTrailAdd(trailPoint);
+            return true;
+
+        }
+    }
+
+    private void BetterTrailAdd(TrailPoint trailPoint)
+    {
+        Trail.Add(trailPoint);
+        
+    }
 
     public bool DrawLevel()
         {
@@ -234,7 +297,6 @@ public class scriptLevelGenerator : MonoBehaviour
                 if (prevY==testY || tilemap.GetTile(testPosition)!=null)
                 {
                     return false;
-                
                 }
                 else
                 {

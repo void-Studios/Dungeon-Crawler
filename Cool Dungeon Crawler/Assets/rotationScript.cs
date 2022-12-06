@@ -18,6 +18,8 @@ public class rotationScript : MonoBehaviour
     public Vector3 targetDestination;
     public Vector3 shootDirection;
 
+    private bool isAttackCooldown; 
+
 
     [SerializeField] private GameObject Apostle;
 
@@ -29,6 +31,8 @@ public class rotationScript : MonoBehaviour
 
         AttackHolder = GameObject.FindGameObjectWithTag("attackHolder");
         object_pos = GameObject.FindGameObjectWithTag("attackShooter");
+
+        isAttackCooldown = false;
     }
     void FixedUpdate()
     {
@@ -41,20 +45,30 @@ public class rotationScript : MonoBehaviour
         angle = Mathf.Atan2(mouse_pos.y, mouse_pos.x);//*180/Mathf.PI;
         currentAngle = angle * Mathf.Rad2Deg + 90;
         transform.rotation = Quaternion.Euler(0, 0, currentAngle);
-        
-        if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButton(0))
         {
-            float x = 2 * Mathf.Cos(currentAngle);
-            float y = 2 * Mathf.Sin(currentAngle);
-            targetDestination = new Vector3(x,y, 0);
-            Shoot(targetDestination, currentAngle);
+            if (!isAttackCooldown)
+            {
+                float x = 2 * Mathf.Cos(currentAngle);
+                float y = 2 * Mathf.Sin(currentAngle);
+                targetDestination = new Vector3(x, y, 0);
+
+                StartCoroutine(Shoot(targetDestination, currentAngle));
+            }
         }
     }
-    private void Shoot(Vector3 destination,float rotation)
+
+
+    public IEnumerator Shoot(Vector3 destination,float rotation)
     {
+        isAttackCooldown = true;
+        
         attack = GodEye.GetWeaponCurrentActive().WeaponObject;
         GameObject tempAttack = Instantiate(attack, attackLocation.transform.position, Quaternion.identity,AttackHolder.transform);
         tempAttack.GetComponent<scriptAttackHandler>().SetRotation(rotation);
         tempAttack.GetComponent<scriptAttackHandler>().SetDestination(destination - object_pos.transform.position);
+        yield return new WaitForSeconds(GodEye.GetPlayerAttackSpeed());
+        isAttackCooldown = false;
     }
 }
