@@ -9,14 +9,16 @@ public class TrailPoint
     public Direction direction;
     public int tile;
     public bool isSuccess;
+    public TileBoundings boundings;
 
-    public TrailPoint(int x, int y, Direction direction, int tile, bool isSuccess)
+    public TrailPoint(int x, int y, Direction direction, int tile, bool isSuccess, TileBoundings boundings)
     {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.tile = tile;
         this.isSuccess = isSuccess;
+        this.boundings = boundings;
     }
 
     public void Next()
@@ -30,5 +32,7 @@ public class TrailPoint
             direction.direction = 0;
         }
     }
+
+    
 
 }

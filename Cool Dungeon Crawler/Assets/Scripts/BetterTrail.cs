@@ -11,4 +11,3 @@ public class BetterTrail
         this.trailPoint = trailPoint;
     }
 }
-S

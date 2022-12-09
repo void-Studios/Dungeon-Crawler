@@ -6,11 +6,11 @@ using UnityEngine;
 public class TileBoundings
 {
     
-    public TileBoundings(int boundingN, int boundingS, int boundingE, int boundingW)
+    public TileBoundings(int boundingN, int boundingE, int boundingS, int boundingW)
     {
         BoundingN = boundingN;
-        BoundingS = boundingS;
         BoundingE = boundingE;
+        BoundingS = boundingS;
         BoundingW = boundingW;
     }
 
@@ -18,5 +18,25 @@ public class TileBoundings
     public int BoundingS { get; set; }
     public int BoundingE { get; set; }
     public int BoundingW { get; set; }
+
+    public int Get(int value)
+    {
+        switch (value)
+        {
+            case 0:
+                return BoundingN;
+            case 1:
+                return BoundingE;
+            case 2:
+                return BoundingS;
+            case 3:
+                return BoundingW;
+            case -1:
+                break;
+        }
+        return -1;
+    }
+
+
 
 }

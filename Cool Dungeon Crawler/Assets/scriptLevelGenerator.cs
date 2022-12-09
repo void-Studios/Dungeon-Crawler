@@ -161,26 +161,26 @@ public class scriptLevelGenerator : MonoBehaviour
         #region Variable declaration for BetterStart() Usage
         //Individual Bounding of each Tile, to be further changed with 
         //JSON->LIST->Object
-        TileBoundings bSNDead = new TileBoundings( 0, 1, 0, 0 );
-        TileBoundings bNSDead = new TileBoundings(1, 0, 0, 0 );
-        TileBoundings bVertical = new TileBoundings(1, 1, 0, 0 );
-        TileBoundings bHorizontal = new TileBoundings(0, 0, 1, 1 );
-        TileBoundings bR = new TileBoundings(0, 1, 1, 0 );
-        TileBoundings bRInv = new TileBoundings(1, 0, 1, 0 );
-        TileBoundings bL = new TileBoundings(0, 1, 0, 1 );
-        TileBoundings bLInv = new TileBoundings(1, 0, 0, 1 );
-        TileBoundings bT = new TileBoundings(0, 1, 1, 1 );
-        TileBoundings bTInv = new TileBoundings(1, 0, 1, 1 );
-        TileBoundings bTVertical = new TileBoundings(1, 1, 1, 0 );
-        TileBoundings bTVerticalInv = new TileBoundings(1, 1, 0, 1 );
-        TileBoundings bWEDead = new TileBoundings(0, 0, 0, 1 );
-        TileBoundings bEWDead = new TileBoundings(0, 0, 1, 0 );
+        TileBoundings boundingSNDeadend = new TileBoundings( 0, 0, 1, 0 );
+        TileBoundings boundingNSDeadend = new TileBoundings(1, 0, 0, 0 );
+        TileBoundings boundingVertical = new TileBoundings(1, 0, 1, 0 );
+        TileBoundings boundingHorizontal = new TileBoundings(0, 1, 0, 1 );
+        TileBoundings boundingElbowRight = new TileBoundings(0, 1, 1, 0 );
+        TileBoundings boundingElbowRightInv = new TileBoundings(1, 1, 0, 0 );
+        TileBoundings boundingElbowLeft = new TileBoundings(0, 0, 1, 1 );
+        TileBoundings boundingElbowLeftInv = new TileBoundings(1, 0, 0, 1 );
+        TileBoundings boundingHorizontalT = new TileBoundings(0, 1, 1, 1 );
+        TileBoundings boundingHorizontalTInv = new TileBoundings(1, 1, 0, 1 );
+        TileBoundings boundingVerticalT = new TileBoundings(1, 1, 1, 0 );
+        TileBoundings boundingVerticalTInv = new TileBoundings(1, 0, 1, 1 );
+        TileBoundings boundingWEDeadend = new TileBoundings(0, 0, 0, 1 );
+        TileBoundings boundingbEWDeadend = new TileBoundings(0, 1, 0, 0 );
 
         //ListStorage
-        BoundingList boundingsN = new BoundingList(bSNDead, bVertical, bR, bL, bT, bTVertical, bTVerticalInv);
-        BoundingList boundingsE = new BoundingList(bWEDead, bHorizontal, bL, bLInv, bT, bTInv, bTVerticalInv);
-        BoundingList boundingsS = new BoundingList(bNSDead, bVertical, bRInv, bLInv, bTInv, bTVertical, bTVerticalInv);
-        BoundingList boundingsW = new BoundingList(bEWDead, bHorizontal, bR, bRInv, bT, bTInv, bTVertical);
+        BoundingList boundingsN = new BoundingList(boundingSNDeadend, boundingVertical, boundingElbowRight, boundingElbowLeft, boundingHorizontalT, boundingVerticalT, boundingVerticalTInv);
+        BoundingList boundingsE = new BoundingList(boundingWEDeadend, boundingHorizontal, boundingElbowLeft, boundingElbowLeftInv, boundingHorizontalT, boundingHorizontalTInv, boundingVerticalTInv);
+        BoundingList boundingsS = new BoundingList(boundingNSDeadend, boundingVertical, boundingElbowRightInv, boundingElbowLeftInv, boundingHorizontalTInv, boundingVerticalT, boundingVerticalTInv);
+        BoundingList boundingsW = new BoundingList(boundingbEWDeadend, boundingHorizontal, boundingElbowRight, boundingElbowRightInv, boundingHorizontalT, boundingHorizontalTInv, boundingVerticalT);
 
         //Storage for the Lists of Lists
        
@@ -215,31 +215,56 @@ public class scriptLevelGenerator : MonoBehaviour
         int y = 0;
 
         //TrailPoint for DrawTile
-        TrailPoint trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile,false);
 
         currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
         TileBoundings _tempTileBoundings = currentBoundingsList.Get(RandomTile);
+        TileBoundings _currentBounding = new TileBoundings(1, 1, 1, 1);
+        TrailPoint trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile, false, _tempTileBoundings);
 
-        //Requests X,Y to be filled with Tile from Direction
+        //GetTileBoundings(X,Y) or from PreviousTrailPoint From Trail
 
+        //Level Difficulty drawing loop 
+
+
+        for (int i = 0; i < (GodEye.GetWorldDifficulty()*5); i++)
+        {
+            if (Trail.Count != 0)
+            {
+                RandomTile = Random.Range(0, 7);
+                RandomDirection = new Direction(Random.Range(0, 4));
+
+
+                _currentBounding = Trail[1].boundings;
+                trailPoint.direction = RandomDirection;
+                trailPoint.tile = RandomTile;
+                currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
+                _tempTileBoundings = currentBoundingsList.Get(RandomTile);
+                x = posX;
+                y = posY;
+
+                trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile, false, _tempTileBoundings);
+            }
+            //Loops starting from Direction to attempt all possible exits to CurrentTile
+            ScanDirection(trailPoint, _currentBounding);
+        }
+        return true;
+    }
+
+    private void ScanDirection(TrailPoint trailPoint, TileBoundings _currentBounding)
+    {
         for (int i = 0; i < 3; i++)
         {
+            if (_currentBounding.Get(trailPoint.direction.direction) == 0)
+            {
+                trailPoint.Next();
+                continue;
+            }
+
             if (DrawTile(trailPoint))
             {
                 break;
             }
-            else
-            {
-                trailPoint.Next();
-            }
         }
-
-        if (!trailPoint.isSuccess)
-        {
-            return false;
-        }
-        
-        return true;
     }
 
     private bool DrawTile(TrailPoint trailPoint)
@@ -255,24 +280,24 @@ public class scriptLevelGenerator : MonoBehaviour
         {
             tilemap.SetTile(testPosition, TilesList.Get(trailPoint.direction.direction)[trailPoint.tile]);
 
+
+
+            tilemap.SetTile(position, tilesUp[trailPoint.tile]);
+            currentBounding = boundingUp[trailPoint.tile];
+            //facing = trailPoint.direction.GetDirection();
+            
+            //Prior to here POSX and POSY is still current drawn tile
             if (trailPoint.direction.GetAxis() == "x")
             {
                 posX += trailPoint.direction.GetIncrement();
             }
-            else if (trailPoint.direction.GetAxis()=="y")
+            else if (trailPoint.direction.GetAxis() == "y")
             {
                 posY += trailPoint.direction.GetIncrement();
             }
-
-            posY += trailPoint.direction.GetIncrement();
-
-            tilemap.SetTile(position, tilesUp[trailPoint.tile]);
-            currentBounding = boundingUp[trailPoint.tile];
-            facing = trailPoint.direction.GetDirection();
             trailPoint.isSuccess = true;
             BetterTrailAdd(trailPoint);
             return true;
-
         }
     }
 
