@@ -235,13 +235,12 @@ public class scriptLevelGenerator : MonoBehaviour
 
 
                 _currentBounding = Trail[1].boundings;
-                trailPoint.direction = RandomDirection;
-                trailPoint.tile = RandomTile;
                 currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
                 _tempTileBoundings = currentBoundingsList.Get(RandomTile);
+                
                 x = posX;
                 y = posY;
-
+                
                 trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile, false, _tempTileBoundings);
             }
             //Loops starting from Direction to attempt all possible exits to CurrentTile
