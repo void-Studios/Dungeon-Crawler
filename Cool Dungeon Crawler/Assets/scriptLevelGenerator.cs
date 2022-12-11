@@ -209,7 +209,7 @@ public class scriptLevelGenerator : MonoBehaviour
     {
         //Variables for the Randomizer
         BoundingList currentBoundingsList;
-        int RandomTile = Random.Range(0, 7);
+        int RandomTile = Random.Range(1, 7);
         Direction RandomDirection = new Direction(Random.Range(0, 4));
         int x = 0;
         int y = 0;
@@ -230,14 +230,17 @@ public class scriptLevelGenerator : MonoBehaviour
         {
             if (Trail.Count != 0)
             {
-                RandomTile = Random.Range(0, 7);
+                RandomTile = Random.Range(1, 7);
                 RandomDirection = new Direction(Random.Range(0, 4));
 
-
-                _currentBounding = Trail[1].boundings;
+                TrailPoint _lastTrailpoint = Trail[Trail.Count - 1];
+                _currentBounding = Trail[Trail.Count-1].boundings;
                 currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
                 _tempTileBoundings = currentBoundingsList.Get(RandomTile);
-                
+
+                //Prior to here POSX and POSY is still current drawn tile
+                Vector2Int value = new Vector2Int(posX, posY);
+                RandomDirection.UpdateTestVector2(value, RandomDirection);
                 x = posX;
                 y = posY;
                 
@@ -285,15 +288,7 @@ public class scriptLevelGenerator : MonoBehaviour
             currentBounding = boundingUp[trailPoint.tile];
             //facing = trailPoint.direction.GetDirection();
             
-            //Prior to here POSX and POSY is still current drawn tile
-            if (trailPoint.direction.GetAxis() == "x")
-            {
-                posX += trailPoint.direction.GetIncrement();
-            }
-            else if (trailPoint.direction.GetAxis() == "y")
-            {
-                posY += trailPoint.direction.GetIncrement();
-            }
+            
             trailPoint.isSuccess = true;
             BetterTrailAdd(trailPoint);
             return true;

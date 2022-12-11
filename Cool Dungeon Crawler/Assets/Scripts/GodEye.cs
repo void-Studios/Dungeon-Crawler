@@ -13,7 +13,8 @@ public static class GodEye
     private static List<Trail> trailInfo = new List<Trail>();
 
 
-
+    private static int playerLuck;
+    private static bool isPT;
     //Player variables for Player spawning 
     private static float playerSpeed;
     private static int playerHPMax;

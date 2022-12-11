@@ -43,8 +43,21 @@ public class Direction
         {
             return "x";
         }
-        
+
 
     }
 
+    public Vector2Int UpdateTestVector2(Vector2Int value,Direction direction)
+    {
+        if (direction.GetAxis() == "x")
+        {
+            value.x += direction.GetIncrement();
+        }
+        else if (direction.GetAxis() == "y")
+        {
+            value.y += direction.GetIncrement();
+        }
+
+        return value;
+    }
 }
