@@ -211,15 +211,13 @@ public class scriptLevelGenerator : MonoBehaviour
         BoundingList currentBoundingsList;
         int RandomTile = Random.Range(1, 7);
         Direction RandomDirection = new Direction(Random.Range(0, 4));
-        int x = 0;
-        int y = 0;
+        Vector2Int trailPosition = new Vector2Int(0, 0);
 
         //TrailPoint for DrawTile
-
         currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
         TileBoundings _tempTileBoundings = currentBoundingsList.Get(RandomTile);
         TileBoundings _currentBounding = new TileBoundings(1, 1, 1, 1);
-        TrailPoint trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile, false, _tempTileBoundings);
+        TrailPoint trailPoint = new TrailPoint(trailPosition, RandomDirection, RandomTile, false, _tempTileBoundings);
 
         //GetTileBoundings(X,Y) or from PreviousTrailPoint From Trail
 
@@ -234,17 +232,15 @@ public class scriptLevelGenerator : MonoBehaviour
                 RandomDirection = new Direction(Random.Range(0, 4));
 
                 TrailPoint _lastTrailpoint = Trail[Trail.Count - 1];
-                _currentBounding = Trail[Trail.Count-1].boundings;
+                _currentBounding = _lastTrailpoint.boundings;
                 currentBoundingsList = StorageList.Get(RandomDirection.GetDirection());
                 _tempTileBoundings = currentBoundingsList.Get(RandomTile);
 
                 //Prior to here POSX and POSY is still current drawn tile
-                Vector2Int value = new Vector2Int(posX, posY);
-                RandomDirection.UpdateTestVector2(value, RandomDirection);
-                x = posX;
-                y = posY;
+                Vector2Int value = new Vector2Int(_lastTrailpoint.trailPosition.x, _lastTrailpoint.trailPosition.y);
+                trailPosition = RandomDirection.UpdateTestVector2(value, RandomDirection);
                 
-                trailPoint = new TrailPoint(x, y, RandomDirection, RandomTile, false, _tempTileBoundings);
+                trailPoint = new TrailPoint(trailPosition, RandomDirection, RandomTile, false, _tempTileBoundings);
             }
             //Loops starting from Direction to attempt all possible exits to CurrentTile
             ScanDirection(trailPoint, _currentBounding);
@@ -267,27 +263,29 @@ public class scriptLevelGenerator : MonoBehaviour
                 break;
             }
         }
+        //it did not work at all so this should be false
+
     }
 
     private bool DrawTile(TrailPoint trailPoint)
     {
         //for loop to check if trailinfo matches an entry from trail[]
-        
-        testPosition = new Vector3Int(trailPoint.x, trailPoint.y, 0);
-        if (tilemap.GetTile(testPosition) != null)
+        Vector2Int _testPosition = trailPoint.direction.UpdateTestVector2(trailPoint.trailPosition, trailPoint.direction);
+        Vector3Int _testTileAt = new Vector3Int(_testPosition.x, _testPosition.y, 0);
+
+
+        if (tilemap.GetTile(_testTileAt) != null)
         {
+            trailPoint.Next();
+
+
+
             return false;
         }
         else
         {
-            tilemap.SetTile(testPosition, TilesList.Get(trailPoint.direction.direction)[trailPoint.tile]);
-
-
-
-            tilemap.SetTile(position, tilesUp[trailPoint.tile]);
-            currentBounding = boundingUp[trailPoint.tile];
-            //facing = trailPoint.direction.GetDirection();
-            
+            tilemap.SetTile(_testTileAt, TilesList.Get(trailPoint.direction.direction)[trailPoint.tile]);
+            trailPoint.trailPosition = new Vector2Int(_testTileAt.x, _testTileAt.y);
             
             trailPoint.isSuccess = true;
             BetterTrailAdd(trailPoint);
@@ -298,7 +296,16 @@ public class scriptLevelGenerator : MonoBehaviour
     private void BetterTrailAdd(TrailPoint trailPoint)
     {
         Trail.Add(trailPoint);
-        
+    }
+
+    private bool DrawTrail(List<TrailPoint> Trail)
+    {
+        for (int i = 0; i < Trail.Count-1; i++)
+        {
+            DrawTile(Trail[i]);
+        }
+
+        return true;
     }
 
     public bool DrawLevel()

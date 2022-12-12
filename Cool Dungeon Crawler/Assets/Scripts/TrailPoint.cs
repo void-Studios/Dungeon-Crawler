@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class TrailPoint
 {
-    public int x;
-    public int y;
+    public Vector2Int trailPosition;
     public Direction direction;
     public int tile;
     public bool isSuccess;
     public TileBoundings boundings;
 
-    public TrailPoint(int x, int y, Direction direction, int tile, bool isSuccess, TileBoundings boundings)
+    public TrailPoint(Vector2Int trailPosition, Direction direction, int tile, bool isSuccess, TileBoundings boundings)
     {
-        this.x = x;
-        this.y = y;
+        this.trailPosition = trailPosition;
         this.direction = direction;
         this.tile = tile;
         this.isSuccess = isSuccess;
