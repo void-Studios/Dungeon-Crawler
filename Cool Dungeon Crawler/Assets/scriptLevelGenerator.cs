@@ -73,7 +73,6 @@ public class scriptLevelGenerator : MonoBehaviour
         PlayerStats = playerRoot.GetComponent<StatsHandler>();
         Apostle.GetComponent<scriptApostle>().SetPlayerObject(playerRoot);
         dungeonHolder = GameObject.FindGameObjectWithTag("dungeonHolder");
-
     }
 
 
@@ -188,8 +187,6 @@ public class scriptLevelGenerator : MonoBehaviour
         StorageList = new BoundingListStorage(boundingsN, boundingsE, boundingsS, boundingsW);
         TilesList = new TilesListStorage(tilesUp, tilesRight, tilesDown, tilesLeft);
         #endregion
-
-
         return true;
     }
     private bool BetterDefault()
@@ -201,7 +198,6 @@ public class scriptLevelGenerator : MonoBehaviour
         int tempRandom = v;
         GodEye.SetWeaponCurrentActive(scriptApostle.WeaponList[tempRandom]);
         scriptApostle.SetWeaponCurrent();
-
 
         return true;
     }

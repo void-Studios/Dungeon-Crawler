@@ -87,7 +87,6 @@ public class StatsHandler : MonoBehaviour
 
     void Start() 
     {
-
         //release plug for BetterChanges
         //Initiate();
         #region Garbarge
@@ -148,7 +147,6 @@ public class StatsHandler : MonoBehaviour
         activeAura = GodEye.GetAuraCurrentActive();
         scriptApostle.UIUpdate();
 
-
         hasInitialized = true;
     }
     public bool BetterDefault()
@@ -205,18 +203,11 @@ public class StatsHandler : MonoBehaviour
         {
             maxHealth+=1;
             currentHealth=maxHealth;
-
         }
         else if(orb == "damage")
         {
             currentAttack+=1;
-            
         }
-
-
-
-
-
     }
     
     public virtual void Die() 
